@@ -7,19 +7,28 @@ const add = (str) => {
     }
 
     let result = 0;
+    let defaultSeparator = ","
+    let includesDelimiter = str?.includes("//")
 
-    // console.log(str)
+    if(includesDelimiter){
+        let strArray = str?.split('\n', 2);
+        let newDelimiter = strArray[0]?.slice(2);
+        defaultSeparator = newDelimiter
+        str = strArray[1]
+    }
 
-    str = str.replace(/(?:\r\n|\r|\n)/g, ",");
+    // console.log(str,defaultSeparator)
+
+    str = str.replace(/(?:\r\n|\r|\n)/g, defaultSeparator);
 
     // console.log(str)
 
     
-    str?.split(",")?.map((el)=>{
+    str?.split(defaultSeparator)?.map((el)=>{
         result+=parseInt(el)||0;
     })
 
     return result
 }
 
-console.log(add("1\n2,3"))
+console.log(add("//;\n1;2"))
